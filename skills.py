@@ -119,17 +119,33 @@ def unique_common_items(list1, list2):
 	
 	return unique_list
 
-# def sum_zero(list1):
-# 	for idx in range(len(list1)):
-
-# 	for num in list1:
-# 		trial_sum = num + list1[i + 1]
-# 		if trial_sum == 0:
-# 			zero_list.append((num, other))
-
-# 	zero_dict[0] = (num1, num2)
-
-# 	return list1
+def sum_zero(list1):
+	pairs_summing_zero = {}
+	for idx in range(len(list1)):
+	    copy_list = list1[:] # creates a copy to manipulate
+	    start_num = copy_list.pop(idx) 
+	    	# pops out the value we are looking at now
+	        # copy_list are the numbers we will be testing our popped number with to sum zero
+	        # and binds that starting number to a variable
+	    for num in copy_list:
+	    	# I think there has to be a way more efficient way to do this
+	    	# seems like I shouldnt have to test the sum of every number
+	    	# especially if there is already a key for that number pair
+	    	# one solution would be doing the sort formatting business 
+	    	# on the tuple pair before I do in the if statement below (pair_list.sort())
+	    	# then if (first, second) tuple-key is in dictionary, could skip the if == 0 statement and actions (break)
+	    	# but then that would still be computing all..
+	        if start_num + num == 0:
+	        	pair_list = [start_num, num] # put in list (could not chain these methods so all separate lines)
+	        	pair_list.sort() # so the values can be sorted uniformly
+	        	first, second = pair_list # unpack list to put in dictionary as tuple
+	        	pairs_summing_zero.setdefault((first, second),True) 
+	        	# previously, thinking I could avoid repetition by popping out pairs from the copy_list that I already knew were sume zero: copy_list.pop(copy_list.index(num))
+	
+	# list comprehension on dictionary to format answer
+	zero_pair_list = [[pair[0], pair[1]] for pair in pairs_summing_zero.keys()]
+	# prevoiusly, return pairs_summing_zero.keys() --> not exactly the right format
+	return zero_pair_list
 
 	# """Return list of x,y number pair lists from a list where x+y==0
 
